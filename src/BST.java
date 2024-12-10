@@ -55,10 +55,18 @@ public class BST {
      * @return ArrayList of BSTNodes in inorder
      */
     public ArrayList<BSTNode> getInorder() {
-        // TODO: Complete inorder traversal
+        ArrayList<BSTNode> bstTree = new ArrayList<BSTNode>();
+        inOrder(bstTree, this.root);
         return null;
     }
 
+    public void inOrder(ArrayList<BSTNode> tree, BSTNode node){
+        if(node == null){
+            return;
+        }
+        tree.add(node);
+        inOrder(tree, node.getLeft());
+    }
     /**
      * @return ArrayList of BSTNodes in preorder
      */
