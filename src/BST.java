@@ -47,8 +47,21 @@ public class BST {
      * @return true if val is in the tree, false otherwise
      */
     public boolean search(int val) {
-        // TODO: Complete the search function
-        return false;
+        if (this.root.getVal() == val){
+            return true;
+        }
+        return (search(val, this.root.getLeft()) || search(val, this.root.getRight()));
+
+    }
+
+    public boolean search(int val, BSTNode node){
+        if (node.getVal() == val){
+            return true;
+        }
+        else if (node.getVal() == null){
+            return false;
+        }
+        return (search(val, node.getLeft()) || search(val, node.getRight()));
     }
 
     /**
@@ -57,30 +70,52 @@ public class BST {
     public ArrayList<BSTNode> getInorder() {
         ArrayList<BSTNode> bstTree = new ArrayList<BSTNode>();
         inOrder(bstTree, this.root);
-        return null;
+        return bstTree;
     }
 
-    public void inOrder(ArrayList<BSTNode> tree, BSTNode node){
+    /// Adds to the array list traversing pre order
+    public void preOrder(ArrayList<BSTNode> tree, BSTNode node){
         if(node == null){
             return;
         }
         tree.add(node);
         inOrder(tree, node.getLeft());
+        inOrder(tree, node.getRight());
     }
     /**
      * @return ArrayList of BSTNodes in preorder
      */
     public ArrayList<BSTNode> getPreorder() {
-        // TODO: Complete preorder traversal
-        return null;
+        ArrayList<BSTNode> bstTree = new ArrayList<BSTNode>();
+        preOrder(bstTree, this.root);
+        return bstTree;
     }
 
+    /// Adds to the arraylist traversing in order
+    public void inOrder(ArrayList<BSTNode> tree, BSTNode node){
+        if(node == null){
+            return;
+        }
+        inOrder(tree, node.getLeft());
+        tree.add(node);
+        inOrder(tree, node.getRight());
+    }
     /**
      * @return ArrayList of BSTNodes in postorder
      */
     public ArrayList<BSTNode> getPostorder() {
-        // TODO: Complete postorder traversal
-        return null;
+        ArrayList<BSTNode> bstTree = new ArrayList<BSTNode>();
+        postOrder(bstTree, this.root);
+        return bstTree;
+    }
+
+    public void postOrder(ArrayList<BSTNode> tree, BSTNode node){
+        if(node == null){
+            return;
+        }
+        inOrder(tree, node.getLeft());
+        inOrder(tree, node.getRight());
+        tree.add(node);
     }
 
     /**
@@ -90,7 +125,18 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        // TODO: Complete insert
+        if (val < root.getVal()){
+            search(val, root.getLeft());
+        }
+        else{
+            search(val, root.getRight());
+        }
+    }
+
+    public void insert(int val, BSTNode node){
+        if (node.
+
+        }
     }
 
     /**
