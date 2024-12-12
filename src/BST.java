@@ -54,12 +54,13 @@ public class BST {
 
     }
 
+    /// Return false if you get to the bottom of both branches with no matches
     public boolean search(int val, BSTNode node){
-        if (node.getVal() == val){
-            return true;
-        }
-        else if (node.getVal() == null){
+        if (node == null){
             return false;
+        }
+        else if (node.getVal() == val){
+            return true;
         }
         return (search(val, node.getLeft()) || search(val, node.getRight()));
     }
@@ -73,15 +74,16 @@ public class BST {
         return bstTree;
     }
 
-    /// Adds to the array list traversing pre order
-    public void preOrder(ArrayList<BSTNode> tree, BSTNode node){
+    /// Adds to the arraylist traversing in order, starting with the left branch then the root then the right
+    public void inOrder(ArrayList<BSTNode> tree, BSTNode node){
         if(node == null){
             return;
         }
-        tree.add(node);
         inOrder(tree, node.getLeft());
+        tree.add(node);
         inOrder(tree, node.getRight());
     }
+
     /**
      * @return ArrayList of BSTNodes in preorder
      */
@@ -91,15 +93,18 @@ public class BST {
         return bstTree;
     }
 
-    /// Adds to the arraylist traversing in order
-    public void inOrder(ArrayList<BSTNode> tree, BSTNode node){
+
+    /// Adds to the array list traversing pre order, starting with the node then working up from both branches
+    public void preOrder(ArrayList<BSTNode> tree, BSTNode node){
         if(node == null){
             return;
         }
-        inOrder(tree, node.getLeft());
         tree.add(node);
+        inOrder(tree, node.getLeft());
         inOrder(tree, node.getRight());
     }
+
+
     /**
      * @return ArrayList of BSTNodes in postorder
      */
@@ -109,6 +114,7 @@ public class BST {
         return bstTree;
     }
 
+    /// Go to the bottom of each branch, then add that node to the list, add the root last
     public void postOrder(ArrayList<BSTNode> tree, BSTNode node){
         if(node == null){
             return;
@@ -125,17 +131,29 @@ public class BST {
      * @param val The value ot insert
      */
     public void insert(int val) {
-        if (val < root.getVal()){
-            search(val, root.getLeft());
-        }
-        else{
-            search(val, root.getRight());
-        }
+        insert(val, root);
     }
 
+    /// Overloaded insert helper method
     public void insert(int val, BSTNode node){
-        if (node.
-
+        /// If the value is the same as a node, return without inserting
+        if(val == node.getVal()){
+            return;
+        }
+        /// Check if the value should go left or right, insert if that left or right child is null
+        else if (val < node.getVal()) {
+            if (node.getLeft() == null) {
+                node.setLeft(new BSTNode(val));
+                return;
+            }
+            insert(val, node.getLeft());
+        }
+        else{
+            if (node.getRight() == null){
+                node.setRight(new BSTNode(val));
+                return;
+            }
+            insert(val, node.getRight());
         }
     }
 
